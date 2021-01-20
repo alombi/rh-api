@@ -11,6 +11,10 @@
    {
      "src":"/info",
      "dest":"/api/info.js"
+   },
+   {
+     "src":"/stats",
+     "dest":"/api/stats.py"
    }
  ] 
 }
