@@ -1,0 +1,16 @@
+{
+ "routes":[
+   {
+     "src":"/changelog",
+     "dest":"/api/changelog.py"
+   },
+   {
+    "src":"/",
+    "dest":"/api/info.js"
+   },
+   {
+     "src":"/info",
+     "dest":"/api/info.js"
+   }
+ ] 
+}
