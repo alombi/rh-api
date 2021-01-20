@@ -29,12 +29,13 @@ class handler(BaseHTTPRequestHandler):
       hearts = scrape(RoutineHubID, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
       downloads = scrapeDownloads(RoutineHubID)
       data = {
-         'id':RoutineHubID,
-         'hearts':hearts,
-         'downloads':downloads
+         "id":RoutineHubID,
+         "hearts":hearts,
+         "downloads":downloads
       }
+      data = str(data).replace('\'', '\"')
       self.send_response(200)
       self.send_header('Content-type', 'text/plain')
       self.end_headers()
-      self.wfile.write(str(data).encode())
+      self.wfile.write(data.encode())
       return

@@ -56,8 +56,9 @@ class handler(BaseHTTPRequestHandler):
       child = child + 1
       i = i -1 
     data["versions"] = versions
+    data = str(data).replace('\'', '\"')
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    self.wfile.write(str(data).encode())
+    self.wfile.write(data.encode())
     return
