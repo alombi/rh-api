@@ -1,0 +1,15 @@
+{
+  "name": "rh-api",
+  "version": "1.0.0",
+  "description": "Unofficial RoutineHub API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@vercel/node": "^1.8.5"
+  }
+}
