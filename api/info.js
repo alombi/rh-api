@@ -8,7 +8,7 @@ module.exports = async(req, res) => {
   let heading = '<h2>How to use</h2>'
   let paragraph = '<p>Heads over to <i>https://rh-api.alombi.xyz/changelog</i> and add a parameter to this URL, containing your shortcut\'s RH ID. For example <a href="https://rh-api.alombi.xyz/changelog?id=1">https://rh-api.alombi.xyz/changelog?id=1</a></p>'
   let subheading = '<h3>Contribute</h3>'
-  let subparagraph = '<p>If you want to contribute to the project, report a bug, request a feature or just read the source, check out this GitHub repo: <a></a></p>'
+  let subparagraph = '<p>If you want to contribute to the project, report a bug, request a feature or just read the source, check out this GitHub repo: <a href="https://github.com/alombi/rh-api">https://github.com/alombi/rh-api</a></p>'
   let footer = '<br>Developed by alombi. © 2021 alombi'
   let html = style + title + subtitle + heading + paragraph + subheading + subparagraph + footer
   res.send(style + html)
