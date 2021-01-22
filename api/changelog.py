@@ -3,11 +3,14 @@ from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
 
-def scrape(id, selector):
+def scrape(id):
   url = f'https://routinehub.co/shortcut/{id}/changelog'
   req = requests.get(url)
   req.raise_for_status()
   soup = bs4.BeautifulSoup(req.text, 'html.parser')
+  return soup
+
+def extract(soup, selector):
   elems = soup.select(selector)
   return elems
 
@@ -17,12 +20,13 @@ class handler(BaseHTTPRequestHandler):
     parsed_path = urlparse(self.path)
     path = '?' + parsed_path.query
     RoutineHubID =  parse_qs(path[1:])["id"][0]
-    text = scrape(RoutineHubID, '#content > div > div.versions')
+    soup = scrape(RoutineHubID)
+    text = extract(soup, '#content > div > div.versions')
 
     data = {
       "id":RoutineHubID
     }
-    elems = scrape(RoutineHubID, '#content > div > div.heading > h4')
+    elems = extract(soup, '#content > div > div.heading > h4')
     res = elems[0].text.strip()
     data["name"] = res
     # Get number of versions
@@ -37,7 +41,7 @@ class handler(BaseHTTPRequestHandler):
       "versions":[]
     }
     while i != 0:
-      text = scrape(RoutineHubID, f'#content > div > div.versions > article:nth-child({str(child)})')
+      text = extract(soup, f'#content > div > div.versions > article:nth-child({str(child)})')
       version = str(text).split('\n')[4].split('</strong>')[0].replace('<strong>', '')
       versionData = {
         "version":version
