@@ -14,6 +14,11 @@ def extractText(soup, selector):
    res = elems[0].text.strip()
    return res
 
+def extractAttribute(soup, selector, attribute):
+   elems = soup.select(selector)
+   res = elems[0][attribute]
+   return res
+
 def scrapeElems(username, selector):
   url = f'https://routinehub.co/user/{username}'
   req = requests.get(url)
@@ -27,6 +32,7 @@ class handler(BaseHTTPRequestHandler):
       path = '?' + parsed_path.query
       RoutineHubAuthor =  parse_qs(path[1:])["username"][0]
       soup = scrapeText(RoutineHubAuthor)
+      avatar = extractAttribute(soup, '#content > div > div > div.column.sidebar.is-2 > figure > img', 'src')
       try:
          bio = extractText(soup, '#content > div > div > div.column.details > div.is-hidden-mobile > p')
       except:
@@ -45,6 +51,7 @@ class handler(BaseHTTPRequestHandler):
       hearts_average = round(int(total_hearts) / int(totalAuthored), 2)
       data = {
          'username':RoutineHubAuthor,
+         'avatar':avatar,
          'bio':bio,
          'total_shortcuts':totalAuthored,
          'total_downloads':totalDownloads,
