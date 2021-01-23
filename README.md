@@ -1,9 +1,9 @@
 # Unofficial RoutineHub API
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on RoutineHub.
 ## Documentation
-* [Changelog](https://github.com/alombi/rh-api/blob/master/README.md#changelog-(get))
-* [Stats](https://github.com/alombi/rh-api/blob/master/README.md#stats-(get))
-* [Author](https://github.com/alombi/rh-api/blob/master/README.md#author-(get))
+* [Changelog](https://github.com/alombi/rh-api/blob/master/README.md#changelog-get)
+* [Stats](https://github.com/alombi/rh-api/blob/master/README.md#stats-get)
+* [Author](https://github.com/alombi/rh-api/blob/master/README.md#author-get)
 
 
 ## Changelog (GET)
