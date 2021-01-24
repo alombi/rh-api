@@ -13,12 +13,16 @@
      "dest":"/api/info.js"
    },
    {
-     "src":"/stats",
-     "dest":"/api/stats.py"
+     "src":"/shortcut",
+     "dest":"/api/shortcut.py"
    },
    {
      "src":"/author",
      "dest":"api/author.py"
+   },
+   {
+     "src":"/home",
+     "dest":"/api/home.py"
    }
  ] 
 }

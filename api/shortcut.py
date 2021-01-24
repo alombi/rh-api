@@ -24,16 +24,27 @@ class handler(BaseHTTPRequestHandler):
   def do_GET(self):
       parsed_path = urlparse(self.path)
       path = '?' + parsed_path.query
-      RoutineHubID =  parse_qs(path[1:])["id"][0]
-      soup = scrape(RoutineHubID)
-      hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
-      downloads = scrapeDownloads(soup)
-      data = {
-         "id":RoutineHubID,
-         "hearts":hearts,
-         "downloads":downloads
-      }
-      data = str(data).replace('\'', '\"')
+      try:
+         RoutineHubID =  parse_qs(path[1:])["id"][0]
+         isValid = True
+         soup = scrape(RoutineHubID)
+         if 'Error: Shortcut not found' in str(soup):
+            isValid = False
+            data = 'The provided id does not exist or it\'s invalid.'
+      except:
+         isValid = False
+         data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
+
+      if isValid:
+         hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
+         downloads = scrapeDownloads(soup)
+         data = {
+            "id":RoutineHubID,
+            "hearts":hearts,
+            "downloads":downloads
+         }
+         data = str(data).replace('\'', '\"')
+
       self.send_response(200)
       self.send_header('Content-type', 'text/plain')
       self.end_headers()

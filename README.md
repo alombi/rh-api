@@ -2,7 +2,7 @@
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on RoutineHub.
 ## Documentation
 * [Changelog](https://github.com/alombi/rh-api/blob/master/README.md#changelog-get)
-* [Stats](https://github.com/alombi/rh-api/blob/master/README.md#stats-get)
+* [Stats](https://github.com/alombi/rh-api/blob/master/README.md#shortcut-get)
 * [Author](https://github.com/alombi/rh-api/blob/master/README.md#author-get)
 
 
@@ -19,8 +19,8 @@ Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this UR
    * `release_notes` = the version's release notes
    * `downloads` = the specific version's downloads count
 
-## Stats (GET)
-Heads over to https://rh-api.alombi.xyz/stats and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/stats?id=1
+## Shortcut (GET)
+Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1
 #### Parameters
 * `id` = the RoutineHub ID of the shortcut
 * `hearts` = the total hearts number
