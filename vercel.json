@@ -22,7 +22,7 @@
    },
    {
      "src":"/home",
-     "dest":"/api/home.py"
+     "dest":"/api/homepage.py"
    }
  ] 
 }
