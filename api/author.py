@@ -1,6 +1,7 @@
 import bs4, requests
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
+import json
 
 def scrapeText(username):
    url = f'https://routinehub.co/user/{username}'
@@ -46,15 +47,9 @@ class handler(BaseHTTPRequestHandler):
          try:
             bio = extractText(soup, '#content > div > div > div.column.details > div.is-hidden-mobile > p')
          except:
-            bio = None
-         totalAuthoredHTML = scrapeElems(RoutineHubAuthor, '#content > div > div > div.column.details > div.authored > div')
-         totalAuthoredHTML = totalAuthoredHTML.select('.shortcut-card')
-         totalAuthored = 0
+            bio =  None
+         totalAuthored = int(extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(1)').replace('Shortcuts: ', ''))
          total_hearts = 0
-         for _ in totalAuthoredHTML:
-            totalAuthored = totalAuthored +1
-            total_hearts = total_hearts + int(extractText(soup, f'#content > div > div > div.column.details > div.authored > div > div:nth-child({totalAuthored}) > a > div > div > div > div > nav > div.level-right > span:nth-child(2) > small'))
-            
          totalDownloads = extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(2)')
          totalDownloads = totalDownloads.split('Downloads: ')[1]
          downloads_average =round(int(totalDownloads) / int(totalAuthored), 2)
@@ -69,9 +64,9 @@ class handler(BaseHTTPRequestHandler):
             'downloads_average':downloads_average,
             'hearts_average':hearts_average
          }
-         data = str(data).replace('\'', '\"')
+         #data = str(data).replace('\'', '\"')
       self.send_response(200)
-      self.send_header('Content-type', 'text/plain')
+      self.send_header('Content-type', 'application/json')
       self.end_headers()
-      self.wfile.write(data.encode())
+      self.wfile.write(json.dumps(data).encode())
       return
