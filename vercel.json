@@ -21,7 +21,7 @@
      "dest":"api/author.py"
    },
    {
-     "src":"/home",
+     "src":"/homepage",
      "dest":"/api/homepage.py"
    }
  ] 
