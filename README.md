@@ -39,6 +39,8 @@ Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this UR
 Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1
 #### Parameters
 * `id` = the RoutineHub ID of the shortcut
+* `name` = the shortcut's name
+* `subtitle` = the shortcut's subtitle
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
 

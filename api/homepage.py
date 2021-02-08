@@ -1,5 +1,6 @@
 import bs4, requests
 from http.server import BaseHTTPRequestHandler
+import json
 
 def scrapeText():
    url = f'https://routinehub.co'
@@ -54,9 +55,9 @@ class handler(BaseHTTPRequestHandler):
             trending[param].append(shortcut)
          j = j + 1      
 
-      data = str(trending).replace('\'', '\"')
+      #data = str(trending).replace('\'', '\"')
       self.send_response(200)
       self.send_header('Content-type', 'text/plain')
       self.end_headers()
-      self.wfile.write(data.encode())
+      self.wfile.write(json.dumps(trending).encode())
       return

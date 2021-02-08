@@ -1,6 +1,7 @@
 import bs4, requests
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
+import json
 
 
 def scrape(id):
@@ -70,10 +71,10 @@ class handler(BaseHTTPRequestHandler):
         child = child + 1
         i = i -1 
       data["versions"] = versions
-      data = str(data).replace('\'', '\"')
+      #data = str(data).replace('\'', '\"')
 
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    self.wfile.write(data.encode())
+    self.wfile.write(json.dumps(data).encode())
     return
