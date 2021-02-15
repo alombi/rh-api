@@ -60,9 +60,9 @@ class handler(BaseHTTPRequestHandler):
             'bio':bio,
             'total_shortcuts':totalAuthored,
             'total_downloads':totalDownloads,
-            'total_hearts':total_hearts,
-            'downloads_average':downloads_average,
-            'hearts_average':hearts_average
+            #'total_hearts':total_hearts,
+            #'hearts_average':hearts_average,
+            'downloads_average':downloads_average
          }
          #data = str(data).replace('\'', '\"')
       self.send_response(200)
