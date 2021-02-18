@@ -10,6 +10,13 @@ def scrapeText(username):
    soup = bs4.BeautifulSoup(req.text, 'html.parser')
    return soup
 
+def scrapePage(username, page):
+   url = f'https://routinehub.co/user/{username}?page={page}'
+   req = requests.get(url)
+   req.raise_for_status()
+   soup = bs4.BeautifulSoup(req.text, 'html.parser')
+   return soup
+
 def extractText(soup, selector):
    elems = soup.select(selector)
    res = elems[0].text.strip()
@@ -50,6 +57,28 @@ class handler(BaseHTTPRequestHandler):
             bio =  None
          totalAuthored = int(extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(1)').replace('Shortcuts: ', ''))
          total_hearts = 0
+         pages = soup.find_all('ul', class_='pagination-list')
+         if pages == []:
+            # Just one page
+            totalAuthoredHTML = scrapeElems(RoutineHubAuthor, '#content > div > div > div.column.details > div.authored > div')
+            totalAuthoredHTML = totalAuthoredHTML.select('.shortcut-card')
+            index = len(totalAuthoredHTML)
+            while index != 0:
+               total_hearts = total_hearts + int(extractText(soup, f'#content > div > div > div.column.details > div.authored > div > div:nth-child({index}) > a > div > div > div > div > nav > div.level-right > span:nth-child(2)'))
+               index = index - 1
+         else:
+            # More pages
+            pages = len(str(pages[0]).replace('<ul class="pagination-list">', '').replace('</ul>', '').split('<li>')) - 1
+            total_hearts = 0
+            while pages > 0:
+               soup_alt = scrapePage(RoutineHubAuthor, pages)
+               totalAuthoredHTML = soup_alt.select('.shortcut-card')
+               index = len(totalAuthoredHTML)
+               while index != 0:
+                  total_hearts = total_hearts + int(extractText(soup_alt, f'#content > div > div > div.column.details > div.authored > div > div:nth-child({index}) > a > div > div > div > div > nav > div.level-right > span:nth-child(2)'))
+                  index = index - 1
+               pages = pages -1
+            print(total_hearts)
          totalDownloads = extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(2)')
          totalDownloads = totalDownloads.split('Downloads: ')[1]
          downloads_average =round(int(totalDownloads) / int(totalAuthored), 2)
@@ -60,8 +89,8 @@ class handler(BaseHTTPRequestHandler):
             'bio':bio,
             'total_shortcuts':totalAuthored,
             'total_downloads':totalDownloads,
-            #'total_hearts':total_hearts,
-            #'hearts_average':hearts_average,
+            'total_hearts':total_hearts,
+            'hearts_average':hearts_average,
             'downloads_average':downloads_average
          }
          #data = str(data).replace('\'', '\"')
