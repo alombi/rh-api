@@ -2,7 +2,7 @@
  "routes":[
    {
      "src":"/changelog",
-     "dest":"/api/changelog.py"
+     "dest":"/api/changelog.js"
    },
    {
     "src":"/",

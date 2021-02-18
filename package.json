@@ -8,7 +8,12 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "puppeteer": "^7.1.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  },
   "devDependencies": {
     "@vercel/node": "^1.8.5"
   }
