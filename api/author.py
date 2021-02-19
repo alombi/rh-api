@@ -76,12 +76,16 @@ class handler(BaseHTTPRequestHandler):
             while pages > 0:
                soup_alt = scrapePage(RoutineHubAuthor, pages)
                totalAuthoredHTML = soup_alt.select('.shortcut-card')
-               index = len(totalAuthoredHTML)
+               index = len(totalAuthoredHTML) - 1
                while index != 0:
                   total_hearts = total_hearts + int(extractText(soup_alt, f'#content > div > div > div.column.details > div.authored > div > div:nth-child({index}) > a > div > div > div > div > nav > div.level-right > span:nth-child(2)'))
                   index = index - 1
                pages = pages -1
-            print(total_hearts)
+         # Calculating pinned shortcut
+         if'Pinned' in str(soup):
+            total_hearts = total_hearts + int(extractText(soup, '#content > div > div > div.column.details > div.pinned > a > div > div > div > div > nav > div.level-right > span:nth-child(2)'))
+            totalAuthored = totalAuthored + 1
+
          totalDownloads = extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(2)')
          totalDownloads = totalDownloads.split('Downloads: ')[1]
          downloads_average =round(int(totalDownloads) / int(totalAuthored), 2)
