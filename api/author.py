@@ -34,6 +34,52 @@ def scrapeElems(username, selector):
   soup = bs4.BeautifulSoup(req.text, 'html.parser')
   return soup
 
+def getSocial(soup):
+   try:
+      keybase = soup.find_all('i', class_='fa-keybase')[0].parent.parent['href']
+   except:
+      keybase = None
+   try:
+      twitter = soup.find_all('i', class_='fa-twitter')[0].parent.parent['href']
+   except:
+      twitter = None
+   try:
+      facebook = soup.find_all('i', class_='fa-facebook-alien')[0].parent.parent['href']
+   except:
+      facebook = None
+   try:
+      reddit = soup.find_all('i', class_='fa-reddit-alien')[0].parent.parent['href']
+   except:
+      reddit = None
+   try:
+      youtube = soup.find_all('i', class_='fa-youtube')[0].parent.parent['href']
+   except:
+      youtube = None
+   try:
+      github = soup.find_all('i', class_='fa-github')[0].parent.parent['href']
+   except:
+      github = None
+   try:
+      gitlab = soup.find_all('i', class_='fa-gitlab')[0].parent.parent['href']
+   except:
+      gitlab = None
+   try:
+      website = soup.find_all('i', class_='fa-globe')[0].parent.parent['href']
+   except:
+      website = None
+   contacts = {
+      'keybase':keybase,
+      'twitter':twitter,
+      'facebook':facebook,
+      'reddit':reddit,
+      'youtube':youtube,
+      'github':github,
+      'gitlab':gitlab,
+      'website':website
+   }
+   return contacts   
+
+
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
       parsed_path = urlparse(self.path)
@@ -58,6 +104,14 @@ class handler(BaseHTTPRequestHandler):
             bio = extractText(soup, '#content > div > div > div.column.details > div.is-hidden-mobile > p')
          except:
             bio =  None
+         if soup.find_all('span', class_='tag is-primary') != []:
+            member = True
+         else:
+            member = False
+         if soup.find_all('span', class_='tag is-dark') != []:
+            mod = True
+         else:
+            mod = False
          totalAuthored = int(extractText(soup, '#content > div > div > div.column.sidebar.is-2 > div.stats > p:nth-child(1)').replace('Shortcuts: ', ''))
          total_hearts = 0
          pages = soup.find_all('ul', class_='pagination-list')
@@ -90,6 +144,7 @@ class handler(BaseHTTPRequestHandler):
          totalDownloads = totalDownloads.split('Downloads: ')[1]
          downloads_average =round(int(totalDownloads) / int(totalAuthored), 2)
          hearts_average = round(int(total_hearts) / int(totalAuthored), 2)
+         contacts = getSocial(soup)
          data = {
             'username':RoutineHubAuthor,
             'avatar':avatar,
@@ -98,9 +153,12 @@ class handler(BaseHTTPRequestHandler):
             'total_downloads':totalDownloads,
             'total_hearts':total_hearts,
             'hearts_average':hearts_average,
-            'downloads_average':downloads_average
+            'downloads_average':downloads_average,
+            'contacts':contacts,
+            'isMember':member,
+            'isMod':mod
          }
-         #data = str(data).replace('\'', '\"')
+      #data = str(data).replace('\'', '\"')
       self.send_response(200)
       self.send_header('Content-type', 'application/json')
       self.end_headers()

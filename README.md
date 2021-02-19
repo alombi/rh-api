@@ -1,4 +1,8 @@
 # Unofficial RoutineHub API
+![](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Frh-api.alombi.xyz)
+![](https://img.shields.io/github/last-commit/alombi/rh-api)
+![](https://img.shields.io/github/release-date/alombi/rh-api)
+
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on RoutineHub.
 ## Documentation
 * [Homepage](#homepage-get)
@@ -55,3 +59,14 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * `total_hearts` = the total number of hearts
 * `downloads_average` = the average of downloads
 * `hearts_average`  = the average of hearts
+* `contacts` = an object structured like this:
+   * `keybase` = link
+   * `twitter` = link
+   * `facebook` = link
+   * `reddit` = link
+   * `youtube` = link
+   * `github` = link
+   * `gitlab` = link
+   * `website` = link
+* `isMember` = a boolean that indicates if the user is a member (`true`) or not (`false`)
+* `isMod` = a boolean that indicates if the user is a mod (`true`) or not (`false`)
