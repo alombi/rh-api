@@ -50,7 +50,10 @@ class handler(BaseHTTPRequestHandler):
          data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
       
       if isValid:
-         avatar = extractAttribute(soup, '#content > div > div > div.column.sidebar.is-2 > figure > img', 'src')
+         try:
+            avatar = extractAttribute(soup, '#content > div > div > div.column.sidebar.is-2 > figure > img', 'src')
+         except:
+            avatar = None
          try:
             bio = extractText(soup, '#content > div > div > div.column.details > div.is-hidden-mobile > p')
          except:
