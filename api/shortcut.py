@@ -41,7 +41,7 @@ class handler(BaseHTTPRequestHandler):
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
          subtitle = extract(soup, '#content > div > article > div > div > div > h4')
-         apiv1 = requests.get('https://routinehub.co/api/v1/shortcuts/5015/versions/latest')
+         apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
          apiv1 = apiv1.json()
          shortcutID = apiv1['URL'].split('/')[-1]
          icloudAPI = f'https://www.icloud.com/shortcuts/api/icons/{shortcutID}'
