@@ -1,4 +1,4 @@
-import bs4, requests
+import bs4, requests, base64
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
@@ -41,12 +41,21 @@ class handler(BaseHTTPRequestHandler):
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
          subtitle = extract(soup, '#content > div > article > div > div > div > h4')
+         apiv1 = requests.get('https://routinehub.co/api/v1/shortcuts/5015/versions/latest')
+         apiv1 = apiv1.json()
+         shortcutID = apiv1['URL'].split('/')[-1]
+         icloudAPI = f'https://www.icloud.com/shortcuts/api/icons/{shortcutID}'
+         iconReq = requests.get(icloudAPI)
+         icon = ("data:" + 
+         iconReq.headers['Content-Type'] + ";" + "base64," + base64.b64encode(iconReq.content).decode("utf-8"))
+         icon = icon.replace('data:image;base64,', '')
          data = {
             "id":RoutineHubID,
             "name":name,
             "subtitle":subtitle,
             "hearts":hearts,
-            "downloads":downloads
+            "downloads":downloads,
+            'icon':icon
          }
          #data = str(data).replace('\'', '\"')
 

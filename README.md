@@ -47,6 +47,7 @@ Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL
 * `subtitle` = the shortcut's subtitle
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
+* `icon` = the shortcut's icon (base64 encoded)
 
 ## Author (GET)
 Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, containing the author's RH username. For example https://rh-api.alombi.xyz/author?username=alombi

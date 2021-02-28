@@ -36,7 +36,6 @@ module.exports = async (req, res) =>{
             }
             json.versions.push(versionJSON)
          }
-         
          json.versions.reverse()
          res.setHeader('Content-type', 'application/json')
          res.json(json)
@@ -46,5 +45,4 @@ module.exports = async (req, res) =>{
          console.log(err)
          res.json('Error')
       })
-   
 }
