@@ -1,9 +1,9 @@
 # Unofficial RoutineHub API
 ![](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Frh-api.alombi.xyz)
 ![](https://img.shields.io/github/last-commit/alombi/rh-api)
-![](https://img.shields.io/github/release-date/alombi/rh-api)
+![](https://img.shields.io/badge/project%20status-active-brightgreen)
 
-This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on RoutineHub.
+This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
 ## Documentation
 * [Homepage](#homepage-get)
 * [Changelog](#changelog-get)
@@ -40,14 +40,17 @@ Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this UR
    * `downloads` = the specific version's downloads count
 
 ## Shortcut (GET)
-Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1
+Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1&icon=true
+
+The `icon` url parameter is `false` by default, and it's optional. If you want to receive the icon, include it as in the example, if not set it to `false` or remove the parameter (https://rh-api.alombi.xyz/shortcut?id=1).
+
 #### Parameters
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
 * `subtitle` = the shortcut's subtitle
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
-* `icon` = the shortcut's icon (base64 encoded)
+* `icon` = the shortcut's icon (base64 encoded). Not included by default.
 
 ## Author (GET)
 Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, containing the author's RH username. For example https://rh-api.alombi.xyz/author?username=alombi

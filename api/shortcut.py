@@ -26,6 +26,14 @@ class handler(BaseHTTPRequestHandler):
       parsed_path = urlparse(self.path)
       path = '?' + parsed_path.query
       try:
+         icon = parse_qs(path[1:])["icon"][0]
+         if icon == "false":
+            icon = False
+         else:
+            icon = True
+      except:
+         icon = False
+      try:
          RoutineHubID =  parse_qs(path[1:])["id"][0]
          isValid = True
          soup = scrape(RoutineHubID)
@@ -41,22 +49,23 @@ class handler(BaseHTTPRequestHandler):
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
          subtitle = extract(soup, '#content > div > article > div > div > div > h4')
-         apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
-         apiv1 = apiv1.json()
-         shortcutID = apiv1['URL'].split('/')[-1]
-         icloudAPI = f'https://www.icloud.com/shortcuts/api/icons/{shortcutID}'
-         iconReq = requests.get(icloudAPI)
-         icon = ("data:" + 
-         iconReq.headers['Content-Type'] + ";" + "base64," + base64.b64encode(iconReq.content).decode("utf-8"))
-         icon = icon.replace('data:image;base64,', '')
          data = {
             "id":RoutineHubID,
             "name":name,
             "subtitle":subtitle,
             "hearts":hearts,
             "downloads":downloads,
-            'icon':icon
          }
+         if icon:
+            apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
+            apiv1 = apiv1.json()
+            shortcutID = apiv1['URL'].split('/')[-1]
+            icloudAPI = f'https://www.icloud.com/shortcuts/api/icons/{shortcutID}'
+            iconReq = requests.get(icloudAPI)
+            icon = ("data:" + 
+            iconReq.headers['Content-Type'] + ";" + "base64," + base64.b64encode(iconReq.content).decode("utf-8"))
+            icon = icon.replace('data:image;base64,', '')
+            data["icon"] = icon
          #data = str(data).replace('\'', '\"')
 
       self.send_response(200)
