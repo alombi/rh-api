@@ -20,6 +20,18 @@ def scrapeDownloads(soup):
    res = res.split('Downloads: ')[1]
    return res
 
+def relatedByAuthor(username, name):
+   url = f'https://routinehub.co/user/{username}'
+   req = requests.get(url)
+   req.raise_for_status()
+   soup = bs4.BeautifulSoup(req.text, 'html.parser')
+   relatedName = str(soup.select('.shortcut-card')[0].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+   if relatedName != name:
+      relatedId = str(soup.select('.shortcut-card')[0].parent['href']).replace('/shortcut/', '').replace('/', '')
+   else:
+      relatedName = str(soup.select('.shortcut-card')[1].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+      relatedId = str(soup.select('.shortcut-card')[1].parent['href']).replace('/shortcut/', '').replace('/', '')
+   return (relatedName, relatedId)
 
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
@@ -45,16 +57,19 @@ class handler(BaseHTTPRequestHandler):
          data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
 
       if isValid:
+         author = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.information > p:nth-child(1) > a > strong').replace('@', '')
          hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
          subtitle = extract(soup, '#content > div > article > div > div > div > h4')
+         related_01 = relatedByAuthor(author, name)
          data = {
             "id":RoutineHubID,
             "name":name,
             "subtitle":subtitle,
             "hearts":hearts,
-            "downloads":downloads,
+            "downloads": downloads,
+            "author":author
          }
          if icon:
             apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
