@@ -1,6 +1,6 @@
 # Unofficial RoutineHub API
 ![](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Frh-api.alombi.xyz)
-![](https://img.shields.io/github/last-commit/alombi/rh-api)
+![](https://img.shields.io/github/release-date/alombi/rh-api?label=latest%20release)
 ![](https://img.shields.io/badge/project%20status-active-brightgreen)
 
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
