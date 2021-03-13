@@ -2,6 +2,7 @@ import bs4, requests, base64
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
+import random
 
 def scrape(id):
    url = f'https://routinehub.co/shortcut/{id}/'
@@ -38,12 +39,13 @@ def relatedByCategory(category, name):
    req = requests.get(url)
    req.raise_for_status()
    soup = bs4.BeautifulSoup(req.text, 'html.parser')
-   relatedName = str(soup.select('.shortcut-card')[0].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+   i = random.sample(range(1, 15), 1)[0]
+   relatedName = str(soup.select('.shortcut-card')[i].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
    if relatedName != name:
-      relatedId = str(soup.select('.shortcut-card')[0].parent['href']).replace('/shortcut/', '').replace('/', '')
+      relatedId = str(soup.select('.shortcut-card')[i].parent['href']).replace('/shortcut/', '').replace('/', '')
    else:
-      relatedName = str(soup.select('.shortcut-card')[1].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
-      relatedId = str(soup.select('.shortcut-card')[1].parent['href']).replace('/shortcut/', '').replace('/', '')
+      relatedName = str(soup.select('.shortcut-card')[i + 1].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+      relatedId = str(soup.select('.shortcut-card')[i + 1].parent['href']).replace('/shortcut/', '').replace('/', '')
    return (relatedName, relatedId)
 
 class handler(BaseHTTPRequestHandler):
