@@ -69,7 +69,10 @@ class handler(BaseHTTPRequestHandler):
             "subtitle":subtitle,
             "hearts":hearts,
             "downloads": downloads,
-            "author":author
+            "author": author,
+            "related": [
+               { "name":related_01[0], "id":related_01[1] }
+            ]
          }
          if icon:
             apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
