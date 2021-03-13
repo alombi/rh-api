@@ -41,9 +41,6 @@ Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this UR
 
 ## Shortcut (GET)
 Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1&icon=true
-
-The `icon` url parameter is `false` by default, and it's optional. If you want to receive the icon, include it as in the example, if not set it to `false` or remove the parameter (https://rh-api.alombi.xyz/shortcut?id=1).
-
 #### Parameters
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
@@ -51,6 +48,15 @@ The `icon` url parameter is `false` by default, and it's optional. If you want t
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
 * `icon` = the shortcut's icon (base64 encoded). Not included by default.
+* `author` = the shortcut's author username
+* `categories` = an array of minum 1 and maximum 2 elements containing shortcut's categories
+* `related` = an array with 2 or 3 shortcuts that are related to the shortcut. This parameter includes a shortcut authored by the same user and one from each category of the shortcut. Not included by default. 
+### Icon
+The `icon` url parameter is `false` by default, and it's optional. If you want to receive the icon, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&icon=true), if not set it to `false` or remove the parameter.
+
+### Related 
+The `related` parameter is `false` by default, and it's optional. If you want to receive related shortcuts, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&related=true), if not set it to `false` or remove the parameter. Take note that requesting related shortcuts may slow down the process a bit.
+
 
 ## Author (GET)
 Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, containing the author's RH username. For example https://rh-api.alombi.xyz/author?username=alombi
