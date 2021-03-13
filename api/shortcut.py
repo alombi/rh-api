@@ -33,6 +33,19 @@ def relatedByAuthor(username, name):
       relatedId = str(soup.select('.shortcut-card')[1].parent['href']).replace('/shortcut/', '').replace('/', '')
    return (relatedName, relatedId)
 
+def relatedByCategory(category, name):
+   url = f'https://routinehub.co/category/{category}/'
+   req = requests.get(url)
+   req.raise_for_status()
+   soup = bs4.BeautifulSoup(req.text, 'html.parser')
+   relatedName = str(soup.select('.shortcut-card')[0].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+   if relatedName != name:
+      relatedId = str(soup.select('.shortcut-card')[0].parent['href']).replace('/shortcut/', '').replace('/', '')
+   else:
+      relatedName = str(soup.select('.shortcut-card')[1].select('strong')[0]).replace('<strong>', '').replace('</strong>', '')
+      relatedId = str(soup.select('.shortcut-card')[1].parent['href']).replace('/shortcut/', '').replace('/', '')
+   return (relatedName, relatedId)
+
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
       parsed_path = urlparse(self.path)
@@ -62,6 +75,14 @@ class handler(BaseHTTPRequestHandler):
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
          subtitle = extract(soup, '#content > div > article > div > div > div > h4')
+         if len(soup.select('.information')[0].find('ul').find_all('li')) == 1:
+            category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
+            categories = [category_01]
+         else:
+            category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
+            category_02 = str(soup.select('.information')[0].find('ul').find_all('li')[1].find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
+            categories = [category_01, category_02]
+         # Related 01
          related_01 = relatedByAuthor(author, name)
          data = {
             "id":RoutineHubID,
@@ -70,10 +91,16 @@ class handler(BaseHTTPRequestHandler):
             "hearts":hearts,
             "downloads": downloads,
             "author": author,
+            "categories": categories,
             "related": [
                { "name":related_01[0], "id":related_01[1] }
             ]
          }
+         # Related 02
+         for category in categories:
+            related_02 = relatedByCategory(category, name)
+            data["related"].append(related_02)
+
          if icon:
             apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
             apiv1 = apiv1.json()
