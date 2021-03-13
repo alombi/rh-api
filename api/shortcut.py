@@ -53,6 +53,14 @@ class handler(BaseHTTPRequestHandler):
       parsed_path = urlparse(self.path)
       path = '?' + parsed_path.query
       try:
+         wantsRelated = parse_qs(path[1:])["related"][0]
+         if wantsRelated == "false":
+            wantsRelated = False
+         else:
+            wantsRelated = True
+      except:
+         wantsRelated = False
+      try:
          icon = parse_qs(path[1:])["icon"][0]
          if icon == "false":
             icon = False
@@ -84,9 +92,7 @@ class handler(BaseHTTPRequestHandler):
             category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             category_02 = str(soup.select('.information')[0].find('ul').find_all('li')[1].find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01, category_02]
-         # Related 01
-         related_01 = relatedByAuthor(author, name)
-         data = {
+            data = {
             "id":RoutineHubID,
             "name":name,
             "subtitle":subtitle,
@@ -94,14 +100,19 @@ class handler(BaseHTTPRequestHandler):
             "downloads": downloads,
             "author": author,
             "categories": categories,
-            "related": [
-               { "name":related_01[0], "id":related_01[1] }
-            ]
          }
-         # Related 02
-         for category in categories:
-            related_02 = relatedByCategory(category, name)
-            data["related"].append(related_02)
+         if wantsRelated:
+            data["related"] = []
+            # Related 01
+            try:
+               related_01 = relatedByAuthor(author, name)
+            except:
+               related_01 = (None, None)
+            data["related"].append({ "name":related_01[0], "id":related_01[1] })
+            # Related 02
+            for category in categories:
+               related_02 = relatedByCategory(category, name)
+               data["related"].append(related_02)
 
          if icon:
             apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
