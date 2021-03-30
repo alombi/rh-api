@@ -49,7 +49,7 @@ def relatedByCategory(category, name):
    return (relatedName, relatedId)
 
 class handler(BaseHTTPRequestHandler):
-  def do_GET(self):
+   def do_GET(self):
       parsed_path = urlparse(self.path)
       path = '?' + parsed_path.query
       try:
@@ -78,7 +78,6 @@ class handler(BaseHTTPRequestHandler):
       except:
          isValid = False
          data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
-
       if isValid:
          author = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.information > p:nth-child(1) > a > strong').replace('@', '')
          hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
@@ -92,14 +91,14 @@ class handler(BaseHTTPRequestHandler):
             category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             category_02 = str(soup.select('.information')[0].find('ul').find_all('li')[1].find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01, category_02]
-            data = {
-            "id":RoutineHubID,
-            "name":name,
-            "subtitle":subtitle,
-            "hearts":hearts,
-            "downloads": downloads,
-            "author": author,
-            "categories": categories,
+         data = {
+         "id":RoutineHubID,
+         "name":name,
+         "subtitle":subtitle,
+         "hearts":hearts,
+         "downloads": downloads,
+         "author": author,
+         "categories": categories,
          }
          if wantsRelated:
             data["related"] = []
@@ -113,7 +112,7 @@ class handler(BaseHTTPRequestHandler):
             for category in categories:
                related_02 = relatedByCategory(category, name)
                data["related"].append(related_02)
-
+  
          if icon:
             apiv1 = requests.get(f'https://routinehub.co/api/v1/shortcuts/{RoutineHubID}/versions/latest')
             apiv1 = apiv1.json()
@@ -124,8 +123,7 @@ class handler(BaseHTTPRequestHandler):
             iconReq.headers['Content-Type'] + ";" + "base64," + base64.b64encode(iconReq.content).decode("utf-8"))
             icon = icon.replace('data:image;base64,', '')
             data["icon"] = icon
-         #data = str(data).replace('\'', '\"')
-
+  
       self.send_response(200)
       self.send_header('Content-type', 'text/plain')
       self.end_headers()
