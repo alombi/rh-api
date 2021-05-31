@@ -51,10 +51,10 @@ Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL
 * `author` = the shortcut's author username
 * `categories` = an array of minum 1 and maximum 2 elements containing shortcut's categories
 * `related` = an array with 2 or 3 shortcuts that are related to the shortcut. This parameter includes a shortcut authored by the same user and one from each category of the shortcut. Not included by default. 
-### Icon
+#### Icon
 The `icon` url parameter is `false` by default, and it's optional. If you want to receive the icon, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&icon=true), if not set it to `false` or remove the parameter.
 
-### Related 
+#### Related 
 The `related` parameter is `false` by default, and it's optional. If you want to receive related shortcuts, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&related=true), if not set it to `false` or remove the parameter. Take note that requesting related shortcuts may slow down the process a bit.
 
 
