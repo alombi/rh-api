@@ -5,27 +5,11 @@
 
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
 ## Documentation
-* [Homepage](#homepage-get)
 * [Changelog](#changelog-get)
 * [Shortcut](#shortcut-get)
 * [Author](#author-get)
+* ~~[Homepage](#homepage-get)~~
 
-
-## Homepage (GET)
-Heads over to https://rh-api.alombi.xyz/homepage
-#### Parameters
-* `trending` = an array containing 6 elements
-* `new` = an array containing 6 elements
-* `recently-updated` = an array containing 6 elements
-
-Each array has the same elements' structure:
-* `name` = the name of the shortcut
-* `id` = the RoutineHub ID of the shortcuts
-* `description` = the shortcut's brief description
-* `downloads` = the shortcut's downloads count
-* `hearts` = the shortcut's hearts count
-* `link` = the link to the shortcut's RoutineHub page
-* `api_link` = the link to the `/shortcut` endpoint
 
 ## Changelog (GET)
 Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
@@ -80,3 +64,21 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
    * `website` = link
 * `isMember` = a boolean that indicates if the user is a member (`true`) or not (`false`)
 * `isMod` = a boolean that indicates if the user is a mod (`true`) or not (`false`)
+
+## Homepage (GET)
+> The homepage endpoint has been deprecated due to the removal of trending shortcuts on RoutineHub homepage.
+
+~~Heads over to https://rh-api.alombi.xyz/homepage~~
+#### ~~Parameters~~
+* ~~`trending` = an array containing 6 elements~~
+* ~~`new` = an array containing 6 elements~~
+* ~~`recently-updated` = an array containing 6 elements~~
+
+~~Each array has the same elements' structure:~~
+* ~~`name` = the name of the shortcut~~
+* ~~`id` = the RoutineHub ID of the shortcuts~~
+* ~~`description` = the shortcut's brief description~~
+* ~~`downloads` = the shortcut's downloads count~~
+* ~~`hearts` = the shortcut's hearts count~~
+* ~~`link` = the link to the shortcut's RoutineHub page~~
+* ~~`api_link` = the link to the `/shortcut` endpoint~~
