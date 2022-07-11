@@ -41,7 +41,7 @@ Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL
 ### Response
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
-* `subtitle` = the shortcut's subtitle
+* `description` = the shortcut's brief description
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
 * `icon` = the shortcut's icon (base64 encoded). Not included by default.

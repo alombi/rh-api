@@ -83,7 +83,7 @@ class handler(BaseHTTPRequestHandler):
          hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
-         subtitle = extract(soup, '#content > div > article > div > div > div > h4')
+         description = extract(soup, '#content > div > article > div > div > div > h4')
          if len(soup.select('.information')[0].find('ul').find_all('li')) == 1:
             category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01]
@@ -94,7 +94,7 @@ class handler(BaseHTTPRequestHandler):
          data = {
          "id":RoutineHubID,
          "name":name,
-         "subtitle":subtitle,
+         "description":description,
          "hearts":hearts,
          "downloads": downloads,
          "author": author,
