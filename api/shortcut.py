@@ -92,11 +92,11 @@ class handler(BaseHTTPRequestHandler):
             category_02 = str(soup.select('.information')[0].find('ul').find_all('li')[1].find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01, category_02]
          data = {
-         "id":RoutineHubID,
+         "id":int(RoutineHubID),
          "name":name,
          "description":description,
-         "hearts":hearts,
-         "downloads": downloads,
+         "hearts":int(hearts),
+         "downloads": int(downloads),
          "author": author,
          "categories": categories,
          }

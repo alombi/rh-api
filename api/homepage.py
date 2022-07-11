@@ -42,9 +42,12 @@ class handler(BaseHTTPRequestHandler):
             link = 'https://routinehub.co' + elem[0].select(f'#shortcut-lists > div:nth-child(2) > div.{param}.home-list > div > div:nth-child({i}) > a')[0]['href']
             RHid = str(elem[0].select(f'#shortcut-lists > div:nth-child(2) > div.{param}.home-list > div > div:nth-child({i}) > a')[0]['href']).replace('/shortcut/', '').replace('/', '')
             api_link = 'https://rh-api.alombi.xyz/shortcut?id=' + RHid
+            #
+            # Needs to convert downloads and hearts in NUMBERS
+            #
             shortcut = {
                'name':name,
-               'id':RHid,
+               'id':int(RHid),
                'description':desc,
                'downloads':downloads,
                'hearts':hearts,
