@@ -6,6 +6,7 @@
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
 ## Documentation
 * [Changelog](#changelog-get)
+* [Search](#search-get)
 * [Shortcut](#shortcut-get)
 * [Author](#author-get)
 * ~~[Homepage](#homepage-get)~~
@@ -13,7 +14,7 @@ This project is a serverless API hosted on Vercel that retrieves some useful inf
 
 ## Changelog (GET)
 Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
-#### Parameters
+### Response
 * `name` = the name of the shortcut
 * `updates` = the number of updates the author made
 * `versions` = an array that contains as many elements as the `updates` value. Each element has these parameters:
@@ -23,12 +24,24 @@ Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this UR
    * `release_notes` = the version's release notes
    * `downloads` = the specific version's downloads count
 
+## Search (GET)
+Heads over to https://rh-api.alombi.xyz/search and add a parameter to this URL, containing your search term. For example https://rh-api.alombi.xyz/search?q=mediakit
+### Response
+* `results` = contains an array with the search results
+   * `name` = the name of the shortcut
+   * `id` = the RoutineHub ID of the shortcuts
+   * `description` = the shortcut's brief description
+   * `downloads` = the shortcut's downloads count
+   * `hearts` = the shortcut's hearts count
+   * `link` = the link to the shortcut's RoutineHub page
+   * `api_link` = the link to the `/shortcut` endpoint
+
 ## Shortcut (GET)
 Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1&icon=true
-#### Parameters
+### Response
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
-* `subtitle` = the shortcut's subtitle
+* `description` = the shortcut's brief description
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
 * `icon` = the shortcut's icon (base64 encoded). Not included by default.
@@ -44,7 +57,7 @@ The `related` parameter is `false` by default, and it's optional. If you want to
 
 ## Author (GET)
 Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, containing the author's RH username. For example https://rh-api.alombi.xyz/author?username=alombi
-#### Parameters
+### Response
 * `username` = the author's username
 * `avatar` = the link to the profile pic
 * `bio` = the author's description (if present)
@@ -69,7 +82,7 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 > The homepage endpoint has been deprecated due to the removal of trending shortcuts on RoutineHub homepage.
 
 ~~Heads over to https://rh-api.alombi.xyz/homepage~~
-#### ~~Parameters~~
+### ~~Response~~
 * ~~`trending` = an array containing 6 elements~~
 * ~~`new` = an array containing 6 elements~~
 * ~~`recently-updated` = an array containing 6 elements~~

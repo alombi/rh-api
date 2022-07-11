@@ -74,16 +74,16 @@ class handler(BaseHTTPRequestHandler):
          soup = scrape(RoutineHubID)
          if 'Error: Shortcut not found' in str(soup):
             isValid = False
-            data = 'The provided id does not exist or it\'s invalid.'
+            data = {'Error':'The provided id does not exist or it\'s invalid.'}
       except:
          isValid = False
-         data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
+         data = {'Error':'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'}
       if isValid:
          author = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.information > p:nth-child(1) > a > strong').replace('@', '')
          hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
          downloads = scrapeDownloads(soup)
          name = extract(soup, '#content > div > article > div > div > div > h3')
-         subtitle = extract(soup, '#content > div > article > div > div > div > h4')
+         description = extract(soup, '#content > div > article > div > div > div > h4')
          if len(soup.select('.information')[0].find('ul').find_all('li')) == 1:
             category_01 = str(soup.select('.information')[0].find('ul').find('li').find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01]
@@ -92,11 +92,11 @@ class handler(BaseHTTPRequestHandler):
             category_02 = str(soup.select('.information')[0].find('ul').find_all('li')[1].find('a')['href']).replace('/category/', '').replace('/', '').capitalize()
             categories = [category_01, category_02]
          data = {
-         "id":RoutineHubID,
+         "id":int(RoutineHubID),
          "name":name,
-         "subtitle":subtitle,
-         "hearts":hearts,
-         "downloads": downloads,
+         "description":description,
+         "hearts":int(hearts),
+         "downloads": int(downloads),
          "author": author,
          "categories": categories,
          }

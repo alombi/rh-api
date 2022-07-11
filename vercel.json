@@ -23,6 +23,10 @@
    {
      "src":"/homepage",
      "dest":"/api/homepage.py"
+   },
+   {
+    "src":"/search",
+    "dest":"/api/search.js"
    }
  ] 
 }

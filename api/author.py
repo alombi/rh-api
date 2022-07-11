@@ -90,10 +90,10 @@ class handler(BaseHTTPRequestHandler):
          soup = scrapeText(RoutineHubAuthor)
          if 'Error: Profile not found' in str(soup):
             isValid = False
-            data = 'The provided username does not exist or it\'s invalid.'
+            data = {'Error':'The provided username does not exist or it\'s invalid.'}
       except:
          isValid = False
-         data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
+         data = {'Error':'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'}
       
       if isValid:
          try:
@@ -149,8 +149,8 @@ class handler(BaseHTTPRequestHandler):
             'username':RoutineHubAuthor,
             'avatar':avatar,
             'bio':bio,
-            'total_shortcuts':totalAuthored,
-            'total_downloads':totalDownloads,
+            'total_shortcuts':int(totalAuthored),
+            'total_downloads':int(totalDownloads),
             'total_hearts':total_hearts,
             'hearts_average':hearts_average,
             'downloads_average':downloads_average,

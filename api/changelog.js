@@ -9,7 +9,7 @@ module.exports = async (req, res) =>{
          let versions = $('#content > div > div.versions > article', html).length;
          let name = $('#content > div > div.heading > h4', html).text();
          let json = {
-            'id':id,
+            'id':Number(id),
             'name':name,
             'updates':versions,
             'versions':[]
@@ -18,7 +18,7 @@ module.exports = async (req, res) =>{
             let version = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p > strong`, html).text();
             let release_date = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p > small:first-of-type`, html).text();
             let iOS = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p > small:last-of-type`, html).text();
-            let downloads = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p > em`, html).text()
+            let downloads = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p > em`, html).text().replace(' downloads', '')
 
             let htmlFixed = $(`#content > div > div.versions > article:nth-child(${i}) > div > div > p`, html).html().split('<br>');
             _ = htmlFixed.pop()
@@ -32,7 +32,7 @@ module.exports = async (req, res) =>{
                'release_date':release_date,
                'iOS':iOS,
                'release_notes':release_notes,
-               'downloads':downloads
+               'downloads':Number(downloads)
             }
             json.versions.push(versionJSON)
          }
@@ -43,6 +43,9 @@ module.exports = async (req, res) =>{
       .catch((err)=>{
          res.setHeader('Content-type', 'application/json')
          console.log(err)
+         if (!id) {
+            res.json({'Error':'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'})
+         }
          res.json('Error')
       })
 }
