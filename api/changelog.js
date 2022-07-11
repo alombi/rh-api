@@ -43,6 +43,9 @@ module.exports = async (req, res) =>{
       .catch((err)=>{
          res.setHeader('Content-type', 'application/json')
          console.log(err)
+         if (!id) {
+            res.json({'Error':'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'})
+         }
          res.json('Error')
       })
 }

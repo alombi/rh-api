@@ -74,10 +74,10 @@ class handler(BaseHTTPRequestHandler):
          soup = scrape(RoutineHubID)
          if 'Error: Shortcut not found' in str(soup):
             isValid = False
-            data = 'The provided id does not exist or it\'s invalid.'
+            data = {'Error':'The provided id does not exist or it\'s invalid.'}
       except:
          isValid = False
-         data = 'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'
+         data = {'Error':'Required parameter was not given or was incorrect. Check docs at https://rh-api.alombi.xyz'}
       if isValid:
          author = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.information > p:nth-child(1) > a > strong').replace('@', '')
          hearts = extract(soup, '#content > div > div > div.column.sidebar.is-2 > div.heart.has-text-centered')
