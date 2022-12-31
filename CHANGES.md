@@ -1,0 +1,2 @@
+- complete rewrite in Typescript
+- new `download_link` parameter in `/changelog`

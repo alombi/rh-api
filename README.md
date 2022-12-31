@@ -4,21 +4,27 @@
 ![](https://img.shields.io/badge/project%20status-active-brightgreen)
 
 This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
+
+> The homepage endpoint has been deprecated due to the removal of trending shortcuts on RoutineHub homepage.
+
+
 ## Documentation
 * [Changelog](#changelog-get)
 * [Search](#search-get)
 * [Shortcut](#shortcut-get)
 * [Author](#author-get)
-* ~~[Homepage](#homepage-get)~~
+<!-- * ~~[Homepage](#homepage-get)~~ -->
 
 
 ## Changelog (GET)
 Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
 ### Response
+* `id` = the shortcut's id
 * `name` = the name of the shortcut
-* `updates` = the number of updates the author made
-* `versions` = an array that contains as many elements as the `updates` value. Each element has these parameters:
+* `toalUpdates` = the number of updates the author made
+* `versions` = an array that contains as many elements as the `toalUpdates` value. Each element has these parameters:
    * `version` = version number
+   * `download_link` = (NEW) the specific version's download link 
    * `release_date` = the specific verision's release date
    * `iOS` = the version's supported operating system
    * `release_notes` = the version's release notes
@@ -78,8 +84,7 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * `isMember` = a boolean that indicates if the user is a member (`true`) or not (`false`)
 * `isMod` = a boolean that indicates if the user is a mod (`true`) or not (`false`)
 
-## Homepage (GET)
-> The homepage endpoint has been deprecated due to the removal of trending shortcuts on RoutineHub homepage.
+<!-- ## Homepage (GET)
 
 ~~Heads over to https://rh-api.alombi.xyz/homepage~~
 ### ~~Response~~
@@ -94,4 +99,4 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * ~~`downloads` = the shortcut's downloads count~~
 * ~~`hearts` = the shortcut's hearts count~~
 * ~~`link` = the link to the shortcut's RoutineHub page~~
-* ~~`api_link` = the link to the `/shortcut` endpoint~~
+* ~~`api_link` = the link to the `/shortcut` endpoint~~ -->
