@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 
 async function checkForResults(page){
     let notFoundString = await page.waitForSelector('#content > div > div > div');
