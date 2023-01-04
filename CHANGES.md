@@ -1,8 +1,8 @@
 - complete rewrite in Typescript
-- new `download_link` parameter in `/changelog`
-- new `routinehub_api_link` parameter in `/search`
+- new `download_url` parameter in `/changelog`
+- new `routinehub_api_url` parameter in `/search`
 - removes `icon` and `related` from `/shortcut`
-- `author` in `shortcut` is now an object containing `username`, `page_link`  and `author_link`
+- `author` in `/shortcut` is now an object containing `username`, `page_url`  and `api_url`
 - added `latest_version` (object formed by `version` and `updated`), `iOS` and `categories` (array) in `/shortcut`
 - added `download_link` in `/shortcut`
 - added better error handling

@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const versions = await page.evaluate(() => 
         Array.from(document.querySelectorAll('article.media'),(e)=>({
             version: e.querySelector('strong')?.innerText,
-            download_link: e.querySelector('a')?.href,
+            download_url: e.querySelector('a')?.href,
             release_date:e.querySelectorAll('small')[0]?.innerText,
             iOS: Number(e.querySelectorAll('small')[1]?.innerText.replace('iOS ', '')),
             changes: e.querySelector('p')?.innerHTML.split('</small>\n<br>\n')[2].split('\n<br><br>\n<em>')[0],

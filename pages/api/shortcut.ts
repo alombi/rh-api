@@ -46,8 +46,8 @@ export default async function handler(req, res) {
         downloads: Number(downloads),
         author: {
             username: author,
-            page_link: authorURL,
-            api_link: `https://rh-api.alombi.xyz/author?username=${author}`
+            page_url: authorURL,
+            api_url: `https://rh-api.alombi.xyz/author?username=${author}`
         },
         latest_version: {
             version: latest_version,
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         },
         iOS: iOS_version,
         categories: categories,
-        download_link: download_link
+        download_url: download_link
     })
 }
 

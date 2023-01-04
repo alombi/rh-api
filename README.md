@@ -3,29 +3,37 @@
 ![](https://img.shields.io/github/release-date/alombi/rh-api?label=latest%20release)
 ![](https://img.shields.io/badge/project%20status-active-brightgreen)
 
-This project is a serverless API hosted on Vercel that retrieves some useful informations that aren't available from the official API (yet) about Shortcuts hosted on [RoutineHub](https://routinehub.co).
+rh-api is an unofficial API that scrapes informations about shortcuts hosted on [RoutineHub](https://routinehub.co), the most popular platform for sharing iOS shortcuts.
+
+## The project
+This project tries to create an alternative to the small official api using `web scraping` and offering lots of data that aren't available in the current (`V1`) version of the official API. 
+
+The application is built with Next.js and Typescript, and hosted on Vercel.
+
+
+
 ## Documentation
 * [Changelog](#changelog-get)
 * [Search](#search-get)
 * [Shortcut](#shortcut-get)
 * [Author](#author-get)
-* ~~[Homepage](#homepage-get)~~
 
 
 ## Changelog (GET)
-Heads over to https://rh-api.alombi.xyz/changelog and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
+The base url is https://rh-api.alombi.xyz/changelog. The **required** parameter to this URL is your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
 ### Response
 * `name` = the name of the shortcut
 * `updates` = the number of updates the author made
 * `versions` = an array that contains as many elements as the `updates` value. Each element has these parameters:
    * `version` = version number
+   * `download_url` = (NEW in 2.0) the url to download the specific version
    * `release_date` = the specific verision's release date
    * `iOS` = the version's supported operating system
    * `release_notes` = the version's release notes
    * `downloads` = the specific version's downloads count
 
 ## Search (GET)
-Heads over to https://rh-api.alombi.xyz/search and add a parameter to this URL, containing your search term. For example https://rh-api.alombi.xyz/search?q=mediakit
+The base url is https://rh-api.alombi.xyz/search. The **required** parameter to this URL is your search term. For example https://rh-api.alombi.xyz/search?q=mediakit
 ### Response
 * `results` = contains an array with the search results
    * `name` = the name of the shortcut
@@ -34,25 +42,29 @@ Heads over to https://rh-api.alombi.xyz/search and add a parameter to this URL, 
    * `downloads` = the shortcut's downloads count
    * `hearts` = the shortcut's hearts count
    * `link` = the link to the shortcut's RoutineHub page
-   * `api_link` = the link to the `/shortcut` endpoint
+   * `api_url` = the url to the `/shortcut` endpoint
+   * `routinehub_api_url` (NEW in 2.0) url to the official API
 
 ## Shortcut (GET)
-Heads over to https://rh-api.alombi.xyz/shortcut and add a parameter to this URL, containing your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1&icon=true
+The base url is https://rh-api.alombi.xyz/shortcut.The **required* parameter to this URL is your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1
 ### Response
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
 * `description` = the shortcut's brief description
 * `hearts` = the total hearts number
 * `downloads` = the total downloads number
-* `icon` = the shortcut's icon (base64 encoded). Not included by default.
-* `author` = the shortcut's author username
+* `author` = object containing
+   * `username` = author's username
+   * `page_url` = (NEW in 2.0) url to the author's page on RoutineHub
+   * `api_url` = (NEW in 2.0) url to the `/author` endpoint
+* `latest_version` = object containing
+   * `version` = (NEW in 2.0) latest version
+   * `updated` = (NEW in 2.0) date of the last update
 * `categories` = an array of minum 1 and maximum 2 elements containing shortcut's categories
-* `related` = an array with 2 or 3 shortcuts that are related to the shortcut. This parameter includes a shortcut authored by the same user and one from each category of the shortcut. Not included by default. 
-#### Icon
-The `icon` url parameter is `false` by default, and it's optional. If you want to receive the icon, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&icon=true), if not set it to `false` or remove the parameter.
+* `iOS` = the iOS version the current version of the shortcut is made for
+* `download_url` = the shortcut's download url
 
-#### Related 
-The `related` parameter is `false` by default, and it's optional. If you want to receive related shortcuts, include it as in the example (https://rh-api.alombi.xyz/shortcut?id=1&related=true), if not set it to `false` or remove the parameter. Take note that requesting related shortcuts may slow down the process a bit.
+> `icon` and `related` paramters were removed in 2.0.
 
 
 ## Author (GET)
@@ -61,11 +73,10 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * `username` = the author's username
 * `avatar` = the link to the profile pic
 * `bio` = the author's description (if present)
-* `total_shortcuts` = the number of authored shortcuts
-* `total_downloads` = the total number of downloads
-* `total_hearts` = the total number of hearts
-* `downloads_average` = the average of downloads
-* `hearts_average`  = the average of hearts
+* `stats` = object containing
+   * `total_shortcuts` = the number of authored shortcuts
+   * `total_downloads` = the total number of downloads
+   * `downloads_average` = the average of downloads
 * `contacts` = an object structured like this:
    * `keybase` = link
    * `twitter` = link
@@ -78,20 +89,4 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * `isMember` = a boolean that indicates if the user is a member (`true`) or not (`false`)
 * `isMod` = a boolean that indicates if the user is a mod (`true`) or not (`false`)
 
-## Homepage (GET)
-> The homepage endpoint has been deprecated due to the removal of trending shortcuts on RoutineHub homepage.
-
-~~Heads over to https://rh-api.alombi.xyz/homepage~~
-### ~~Response~~
-* ~~`trending` = an array containing 6 elements~~
-* ~~`new` = an array containing 6 elements~~
-* ~~`recently-updated` = an array containing 6 elements~~
-
-~~Each array has the same elements' structure:~~
-* ~~`name` = the name of the shortcut~~
-* ~~`id` = the RoutineHub ID of the shortcuts~~
-* ~~`description` = the shortcut's brief description~~
-* ~~`downloads` = the shortcut's downloads count~~
-* ~~`hearts` = the shortcut's hearts count~~
-* ~~`link` = the link to the shortcut's RoutineHub page~~
-* ~~`api_link` = the link to the `/shortcut` endpoint~~
+> `total_hearts`and `hearts_average` were removed in 2.0

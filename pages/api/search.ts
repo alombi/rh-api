@@ -31,8 +31,8 @@ export default async function handler(req, res) {
         downloads: Number(el.querySelectorAll('small')[1]?.innerText),
         hearts: Number(el.querySelectorAll('small')[2]?.innerText),
         link: el.querySelector('a')?.href,
-        api_link: 'https://rh-api.alombi.xyz/shortcut?id=' + Number(el.querySelector('a')?.href.replace('https://routinehub.co/shortcut/', '').replace('/', '')),
-        routinehub_api_link: `https://routinehub.co/api/v1/shortcuts/${Number(el.querySelector('a')?.href.replace('https://routinehub.co/shortcut/', '').replace('/', ''))}/versions/latest`
+        api_url: 'https://rh-api.alombi.xyz/shortcut?id=' + Number(el.querySelector('a')?.href.replace('https://routinehub.co/shortcut/', '').replace('/', '')),
+        routinehub_api_url: `https://routinehub.co/api/v1/shortcuts/${Number(el.querySelector('a')?.href.replace('https://routinehub.co/shortcut/', '').replace('/', ''))}/versions/latest`
     })))
     const totalResults = results?.length;
     
