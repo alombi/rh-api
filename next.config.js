@@ -12,6 +12,11 @@ const nextConfig = {
         source: '/changelog:path*',
         destination: '/api/changelog:path*',
         permanent: false
+      },
+      {
+        source: '/shortcut:path*',
+        destination: '/api/shortcut:path*',
+        permanent: false
       }
     ]
   },
