@@ -5,3 +5,4 @@
 - `author` in `shortcut` is now an object containing `username`, `page_link`  and `author_link`
 - added `latest_version` (object formed by `version` and `updated`), `iOS` and `categories` (array) in `/shortcut`
 - added `download_link` in `/shortcut`
+- added better error handling
