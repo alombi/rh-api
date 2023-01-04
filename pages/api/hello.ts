@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import edgeChromium from 'chrome-aws-lambda'
 
 async function checkForResults(page){
     let notFoundString = await page.waitForSelector('#content > div > div > div');
@@ -10,12 +11,18 @@ async function checkForResults(page){
         return false;
     }
 }
-
+const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 export default async function handler(req, res) {
+    const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
     const query: string = req.query.q;
     const baseURL: string = `https://routinehub.co/search/?q=${query}`;
 
-    const browser = await puppeteer.launch();
+    //const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        executablePath,
+        args: edgeChromium.args,
+        headless: false,
+    })
     const page = await browser.newPage();
     page.setUserAgent('Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16')
     await page.goto(baseURL);
