@@ -16,6 +16,10 @@ export default async function handler(req, res) {
     const page = await browser.newPage();
     page.setUserAgent('Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16')
     await page.goto(baseURL);
+    const is404 = await checkForResults(page);
+    if(is404){
+        res.status(404).json({error: 'Shortcut not found'});
+    }
 
     const shortcutName = await page.evaluate(() => document.querySelectorAll('h4')[0].textContent) as string;
     const toalUpdates = await page.evaluate(() => Array.from(document.querySelectorAll('article.media')).length);
@@ -38,4 +42,14 @@ export default async function handler(req, res) {
         toalUpdates: toalUpdates,
         versions:versions
     });
+}
+
+async function checkForResults(page){
+    let notFoundString = await page.evaluate(()=> document.querySelector('h3')?.textContent) as string
+    notFoundString = notFoundString.replace(/\n/g, '');
+    if(notFoundString == 'Error: Shortcut not found'){
+        return true;
+    }else{
+        return false;
+    }
 }
