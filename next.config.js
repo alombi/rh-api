@@ -34,6 +34,15 @@ const nextConfig = {
             value: 'application/json;charset=UTF-8',
           }
         ]
+      },
+      {
+        source: '/api/shortcut:path*',
+        headers:[
+          {
+            key: 'Content-type',
+            value: 'application/json;charset=UTF-8',
+          }
+        ]
       }
     ]
   }
