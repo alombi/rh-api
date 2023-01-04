@@ -1,15 +1,6 @@
 import puppeteer from 'puppeteer-core';
 import edgeChromium from 'chrome-aws-lambda'
 
-async function checkForResults(page){
-    let notFoundString = await page.waitForSelector('#content > div > div > div');
-    notFoundString = await notFoundString?.evaluate((e) => e.innerText);
-    if(notFoundString == 'No results found.'){
-        return true;
-    }else{
-        return false;
-    }
-}
 const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 export default async function handler(req, res) {
     const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
@@ -50,4 +41,14 @@ export default async function handler(req, res) {
         totalResults: totalResults,
         results:results
     })
+}
+
+async function checkForResults(page){
+    let notFoundString = await page.waitForSelector('#content > div > div > div');
+    notFoundString = await notFoundString?.evaluate((e) => e.innerText);
+    if(notFoundString == 'No results found.'){
+        return true;
+    }else{
+        return false;
+    }
 }

@@ -4,7 +4,7 @@ import edgeChromium from 'chrome-aws-lambda'
 const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 export default async function handler(req, res) {
     const id = Number(req.query.id);
-    if(id == null || id == 0) res.status(500).json({error: 'No ID provided.'});
+    if(id == null || id == 0) res.status(500).json({error: 'No ID provided. Check docs at https://github.com/alombi/rh-api'});
     const baseURL: string = `https://routinehub.co/shortcut/${id}/`
 
     const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE

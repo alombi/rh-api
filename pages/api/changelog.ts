@@ -8,7 +8,6 @@ export default async function handler(req, res) {
     if(id == null || id == 0) res.status(500).json({error: 'No ID provided.'});
 
     const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
-  
     const browser = await puppeteer.launch({
         executablePath,
         args: edgeChromium.args,

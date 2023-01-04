@@ -17,6 +17,11 @@ const nextConfig = {
         source: '/shortcut:path*',
         destination: '/api/shortcut:path*',
         permanent: false
+      },
+      {
+        source: '/author:path*',
+        destination: '/api/author:path*',
+        permanent: false
       }
     ]
   },
@@ -42,6 +47,15 @@ const nextConfig = {
       },
       {
         source: '/api/shortcut:path*',
+        headers:[
+          {
+            key: 'Content-type',
+            value: 'application/json;charset=UTF-8',
+          }
+        ]
+      },
+      {
+        source: '/api/author:path*',
         headers:[
           {
             key: 'Content-type',
