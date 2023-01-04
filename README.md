@@ -61,7 +61,7 @@ The base url is https://rh-api.alombi.xyz/shortcut.The **required* parameter to 
 * `iOS` = the iOS version the current version of the shortcut is made for
 * `download_url` = the shortcut's download url
 
-> `icon` and `related` paramters were removed in 2.0.
+> `icon` and `related` were removed in 2.0.
 
 
 ## Author (GET)
@@ -86,4 +86,4 @@ Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, 
 * `isMember` = a boolean that indicates if the user is a member (`true`) or not (`false`)
 * `isMod` = a boolean that indicates if the user is a mod (`true`) or not (`false`)
 
-> `total_hearts`and `hearts_average` were removed in 2.0
+> `total_hearts` and `hearts_average` were removed in 2.0
