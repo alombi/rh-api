@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@next/font": "13.1.1",
-    "next": "13.1.1",
+    "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "chrome-aws-lambda": "10.1.0",
-    "puppeteer-core": "10.1.0"
+    "chrome-aws-lambda": "6.0.0",
+    "puppeteer-core": "6.0.0"
   },
   "devDependencies": {
     "@types/react": "18.0.26",
