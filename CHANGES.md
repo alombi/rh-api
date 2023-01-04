@@ -1,0 +1,3 @@
+- complete rewrite in Typescript
+- new `download_link` parameter in `/changelog`
+- new `routinehub_api_link` parameter in `/search`

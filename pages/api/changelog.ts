@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer-core';
 import edgeChromium from 'chrome-aws-lambda'
-const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
+const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 export default async function handler(req, res) {
     const id = Number(req.query.id);
     const baseURL: string = `https://routinehub.co/shortcut/${id}/changelog`;
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     );
 
     await browser.close()
-    
+
     res.status(200).json({
         id: id,
         name: shortcutName,
