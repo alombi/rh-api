@@ -3,7 +3,7 @@
 ![](https://img.shields.io/github/release-date/alombi/rh-api?label=latest%20release)
 ![](https://img.shields.io/badge/project%20status-active-brightgreen)
 
-rh-api is an unofficial API that scrapes informations about shortcuts hosted on [RoutineHub](https://routinehub.co), the most popular platform for sharing iOS shortcuts. This project tries to create an alternative to the small official api using `web scraping` and offering lots of data that aren't available in the current (`V1`) version of the official API. 
+rh-api is an unofficial API that scrapes informations about shortcuts hosted on [RoutineHub](https://routinehub.co), the most popular platform for sharing iOS shortcuts. This project tries to create an alternative to the official API using `web scraping` and offering lots of data that aren't available in the current (`V1`) version of the official API. 
 
 The application is built with Next.js and Typescript, and hosted on Vercel.
 
