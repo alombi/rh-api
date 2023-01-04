@@ -17,7 +17,7 @@ The application is built with Next.js and Typescript, and hosted on Vercel.
 
 
 ## Changelog (GET)
-The base url is https://rh-api.alombi.xyz/changelog. The **required** parameter to this URL is your shortcut's RH ID. For example https://rh-api.alombi.xyz/changelog?id=1
+The base url is https://rh-api.alombi.xyz/changelog. The **required** parameter for this URL is your shortcut's RH ID. For example <a src="https://rh-api.alombi.xyz/changelog?id=1" target="_blank" >https://rh-api.alombi.xyz/changelog?id=1</a>.
 ### Response
 * `name` = the name of the shortcut
 * `updates` = the number of updates the author made
@@ -30,7 +30,7 @@ The base url is https://rh-api.alombi.xyz/changelog. The **required** parameter 
    * `downloads` = the specific version's downloads count
 
 ## Search (GET)
-The base url is https://rh-api.alombi.xyz/search. The **required** parameter to this URL is your search term. For example https://rh-api.alombi.xyz/search?q=mediakit
+The base url is https://rh-api.alombi.xyz/search. The **required** parameter for this URL is your search term. For example <a src="https://rh-api.alombi.xyz/search?q=mediakit" target="_blank" >https://rh-api.alombi.xyz/search?q=mediakit</a>.
 ### Response
 * `results` = contains an array with the search results
    * `name` = the name of the shortcut
@@ -43,7 +43,7 @@ The base url is https://rh-api.alombi.xyz/search. The **required** parameter to 
    * `routinehub_api_url` (NEW in 2.0) url to the official API
 
 ## Shortcut (GET)
-The base url is https://rh-api.alombi.xyz/shortcut.The **required* parameter to this URL is your shortcut's RH ID. For example https://rh-api.alombi.xyz/shortcut?id=1
+The base url is https://rh-api.alombi.xyz/shortcut. The **required** parameter for this URL is your shortcut's RH ID. For example <a src="https://rh-api.alombi.xyz/shortcut?id=1" target="_blank" >https://rh-api.alombi.xyz/shortcut?id=1</a>.
 ### Response
 * `id` = the RoutineHub ID of the shortcut
 * `name` = the shortcut's name
@@ -65,7 +65,7 @@ The base url is https://rh-api.alombi.xyz/shortcut.The **required* parameter to 
 
 
 ## Author (GET)
-Heads over to https://rh-api.alombi.xyz/author and add a parameter to this URL, containing the author's RH username. For example https://rh-api.alombi.xyz/author?username=alombi
+The base url is https://rh-api.alombi.xyz/author. The **required** parameter for this URL is the author's RH username. For example <a src="https://rh-api.alombi.xyz/author?username=alombi" target="_blank" >https://rh-api.alombi.xyz/author?username=alombi</a>.
 ### Response
 * `username` = the author's username
 * `avatar` = the link to the profile pic
