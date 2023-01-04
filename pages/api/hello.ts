@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import puppeteer from 'puppeteer-core';
 import edgeChromium from 'chrome-aws-lambda'
 
@@ -17,7 +16,6 @@ export default async function handler(req, res) {
     const query: string = req.query.q;
     const baseURL: string = `https://routinehub.co/search/?q=${query}`;
 
-    //const browser = await puppeteer.launch();
     const browser = await puppeteer.launch({
         executablePath,
         args: edgeChromium.args,
@@ -34,11 +32,6 @@ export default async function handler(req, res) {
             error: 'No results found.'
         })
     }
-    // const results = await page.evaluate(() =>
-    //     Array.from(document.querySelectorAll('a'),(e)=>({
-    //         id: Number(e.querySelector('a')?.href)
-    //     }))
-    // )
     let container = await page.waitForSelector('#content > div > div');
     const results = await container?.evaluate((e) => Array.from(e.querySelectorAll('.column'), (el) => ({
         name:el.querySelector('strong')?.innerText,
@@ -58,8 +51,3 @@ export default async function handler(req, res) {
         results:results
     })
 }
-
-//export default function handler(req, res) {
-  
-//  res.status(200).json({ name: 'John Doe' })
-//}
