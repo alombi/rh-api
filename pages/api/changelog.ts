@@ -32,10 +32,7 @@ export default async function handler(req, res) {
     );
 
     await browser.close()
-
-    res.setHeaders({
-        "Content-type": "application/json;charset=UTF-8",
-    })
+    
     res.status(200).json({
         id: id,
         name: shortcutName,

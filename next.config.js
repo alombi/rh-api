@@ -15,6 +15,28 @@ const nextConfig = {
       }
     ]
   },
+  async headers() {
+    return [
+      {
+        source: '/api/search:path*',
+        headers: [
+          {
+            key: 'Content-type',
+            value: 'application/json;charset=UTF-8',
+          }
+        ]
+      },
+      {
+        source: '/api/changelog:path*',
+        headers:[
+          {
+            key: 'Content-type',
+            value: 'application/json;charset=UTF-8',
+          }
+        ]
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig
