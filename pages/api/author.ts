@@ -30,17 +30,45 @@ export default async function handler(req, res) {
     }
     const total_shortcuts = await page.evaluate(() => document.querySelectorAll('.stats > p')[0]?.textContent).then((e)=>e.replace('Shortcuts: ', '')) as string;
     const total_downloads = await page.evaluate(() => document.querySelectorAll('.stats > p')[1]?.textContent).then((e)=>e.replace('Downloads: ', '')) as string;
+    let isMember: string | boolean = await page.evaluate(()=> document.querySelectorAll('.tag')[0]?.textContent) as string;
+    if(isMember == 'Member'){
+        isMember = true;
+    }else{
+        isMember = false;
+    }
+    let isMod: string | boolean = await page.evaluate(()=> document.querySelectorAll('.tag')[1]?.textContent) as string;
+    if(isMod == 'Mod'){
+        isMod = true;
+    }else{
+        isMod = false;
+    }
 
-
+    const contacts = {
+        keybase: await page.evaluate(()=> document.querySelector('.fa-keybase')?.parentElement.parentElement.getAttribute('href')),
+        twitter: await page.evaluate(()=> document.querySelector('.fa-twitter')?.parentElement.parentElement.getAttribute('href')),
+        facebook: await page.evaluate(()=> document.querySelector('.fa-facebook-alien')?.parentElement.parentElement.getAttribute('href')),
+        reddit : await page.evaluate(()=> document.querySelector('.fa-reddit-alien')?.parentElement.parentElement.getAttribute('href')),
+        youtube: await page.evaluate(()=> document.querySelector('.fa-youtube')?.parentElement.parentElement.getAttribute('href')),
+        github: await page.evaluate(()=> document.querySelector('.fa-github')?.parentElement.parentElement.getAttribute('href')),
+        gitlab: await page.evaluate(()=> document.querySelector('.fa-gitlab')?.parentElement.parentElement.getAttribute('href')),
+        website: await page.evaluate(()=> document.querySelector('.fa-globe')?.parentElement.parentElement.getAttribute('href')),
+        email: await page.evaluate(()=> document.querySelector('.fa-envelope')?.parentElement.parentElement.getAttribute('href').replace('mailto:', ''))
+    }
+    
 
     await browser.close()
     res.status(200).json({
         username: username,
         avatar: avatar,
         subtitle: subtitle,
-        total_shortcuts: Number(total_shortcuts),
-        total_downloads: Number(total_downloads)
-
+        stats:{
+            total_shortcuts: Number(total_shortcuts),
+            total_downloads: Number(total_downloads),
+            downloads_average: Number(total_downloads) / Number(total_shortcuts)
+        },
+        isMember: isMember,
+        isMod: isMod,
+        contacts: contacts
     })
 
 }

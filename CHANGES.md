@@ -6,3 +6,5 @@
 - added `latest_version` (object formed by `version` and `updated`), `iOS` and `categories` (array) in `/shortcut`
 - added `download_link` in `/shortcut`
 - added better error handling
+- removed `total_hearts`and `hearts_average` from `/author`
+- `total_shortcuts`, `total_downloads` and `downloads_average` are now in the `stats` object 
