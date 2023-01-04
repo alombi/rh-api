@@ -4,8 +4,13 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/api/hello?q=memento',
+        source: '/search:path*',
+        destination: '/api/search:path*',
+        permanent: false
+      },
+      {
+        source: '/changelog:path*',
+        destination: '/api/changelog:path*',
         permanent: false
       }
     ]

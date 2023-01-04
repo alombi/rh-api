@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
     const hasNoResults = await checkForResults(page);
     if(hasNoResults){
-        res.status(200).son({
+        res.status(500).son({
             results: [],
             error: 'No results found.'
         })
