@@ -4,6 +4,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/',
+        destination: 'https://github.com/alombi/rh-api',
+        permanent: false
+      },
+      {
         source: '/search:path*',
         destination: '/api/search:path*',
         permanent: false
