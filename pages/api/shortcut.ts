@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     const description = await page.evaluate(() => document.querySelectorAll('h4')[0].textContent) as string;
     const hearts = await page.evaluate(() => document.querySelector('.heart-count')?.textContent) as string;
     const downloads = await page.evaluate(() => document.querySelectorAll('.information > p')[4]?.textContent).then((e)=>e.replace('Downloads: ', '')) as string;
-    const author = await page.evaluate(() => document.querySelectorAll('.information > p')[0]?.textContent).then((e)=>e.replace('Author:\n@', '').replace('\n', '')) as string;
+    const author = await page.evaluate(() => document.querySelector('.information > p > a > strong')?.textContent).then(e=> e.replace('@', '')) as string;
     const authorURL = await page.evaluate(() => document.querySelectorAll('.information > p')[0].querySelector('a')?.href) as string;
     const latest_version = await page.evaluate(() => document.querySelectorAll('.information > p')[1]?.textContent).then((e)=>e.replace('Version: ', '')) as string;
     const updated = await page.evaluate(() => document.querySelectorAll('.information > p')[3]?.textContent).then((e)=>e.replace('Updated: ', '')) as string;
